@@ -237,8 +237,15 @@ controllersModule.controller('VideoCtrl', ['$scope', 'sampleVideo', 'doc', 'vide
         }
 
         if(doc.info.currentVideo !== $scope.videoUrl) {
-            segmentio.track('Load video', {url: $scope.videoUrl});
-            $scope.addVideo($scope.videoUrl);
+            /*Support for youtu.be urls*/
+            var decrypted_url = $scope.videoUrl;
+            if(/\/\/youtu.be\//.test(decrypted_url))
+            {
+                decrypted_url = decrypted_url.substr(/\/\/youtu.be\//.exec(decrypted_url).index+11);
+                decrypted_url = 'https://www.youtube.com/watch?v=' + decrypted_url;
+            }
+            segmentio.track('Load video', {url: decrypted_url});
+            $scope.addVideo(decrypted_url);
             $scope.loadPlayer();
         }
     };
