@@ -1,4 +1,4 @@
-VideoNot.es
+VideoNotes
 ======================
 
 The easiest way to take notes synchronized with videos!
